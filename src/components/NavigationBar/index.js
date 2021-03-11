@@ -28,11 +28,15 @@ export const NavigationBar = (props) => {
 };
 
 NavigationBar.propTypes = {
-  props: PropTypes,
+  highlightHistory: PropTypes.array,
 };
 
-const mapStateToProps = (state) => ({});
+function mapStateToProps(state) {
+  return {};
+}
 
-const mapDispatchToProps = {};
+function mapDispatchToProps(dispatch) {
+  return {};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar);
