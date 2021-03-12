@@ -1,5 +1,5 @@
 .main-page-container {
-  margin-top: 50px;
+  margin-top: 70px;
 
   ul.issues-list {
     list-style-type: none;
@@ -44,5 +44,17 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+
+    .prev-btn {
+      border: none;
+      width: 100px;
+      background: none;
+    }
+
+    .next-btn {
+      width: 100px;
+      border: none;
+      background: none;
+    }
   }
 }

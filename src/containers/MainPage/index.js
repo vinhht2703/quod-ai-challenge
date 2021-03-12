@@ -8,6 +8,7 @@ import {
   highlightedIssueSelector,
 } from "./selectors";
 import "./styles.scss";
+import { Button, notification } from "antd";
 
 export const MainPage = (props) => {
   //state
@@ -26,6 +27,11 @@ export const MainPage = (props) => {
     if (!issuesData[`${curPage}`] && typeof onFetchIssues === "function")
       onFetchIssues({ page: curPage });
   }, [curPage]);
+
+  useEffect(() => {
+    if (highlightedIssue && highlightedIssue.id)
+      notifyHighlightIssueSuccess(highlightedIssue);
+  }, [highlightedIssue]);
 
   const handlePagination = useCallback(
     (type) => {
@@ -83,22 +89,35 @@ export const MainPage = (props) => {
       </ul>
 
       <div className="pagination-container">
-        <button
-          className="prev-btn"
-          onClick={() => handlePagination("prev")}
-          disabled={curPage === 1}
-        >
-          prev
-        </button>
-        <button
-          className="next-btn ml-2"
-          onClick={() => handlePagination("next")}
-        >
-          next
-        </button>
+        <span>
+          <Button
+            className="prev-btn "
+            onClick={() => handlePagination("prev")}
+            disabled={curPage === 1}
+          >
+            <i class="bi bi-chevron-left mr-1"></i> Previous
+          </Button>
+          <Button
+            className="next-btn "
+            onClick={() => handlePagination("next")}
+          >
+            Next <i class="bi bi-chevron-right ml-1"></i>
+          </Button>
+          <span className="page-info ml-3">Page {curPage}</span>
+        </span>
       </div>
     </div>
   );
+};
+
+const notifyHighlightIssueSuccess = (issue) => {
+  const { title } = issue;
+  notification.success({
+    message: "Issue is highlighted!",
+    description: <div>{title}</div>,
+    duration: 2,
+    top: 70,
+  });
 };
 
 MainPage.propTypes = {
