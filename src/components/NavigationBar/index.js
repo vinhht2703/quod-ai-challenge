@@ -26,7 +26,7 @@ export const NavigationBar = (props) => {
 
   const closeNotification = useCallback(() => {
     if (notificationVisible) updateNotificationVisible(false);
-  }, []);
+  });
 
   return (
     <nav className="navigation-bar navbar navbar-expand-lg navbar-dark bg-dark">
