@@ -1,11 +1,4 @@
-import {
-  call,
-  put,
-  spawn,
-  takeLatest,
-  takeEvery,
-  select,
-} from "redux-saga/effects";
+import { call, put, takeLatest, select } from "redux-saga/effects";
 import { FETCH_ISSUES, HIGHLIGHT_ISSUE } from "./constants";
 import {
   fetchIssuesError,
@@ -43,7 +36,7 @@ export function* highlightIssue(action) {
     const highlightedIssue = yield select(highlightedIssueSelector);
     const { id: curIssueId } = highlightedIssue || {};
 
-    if (newIssueId && curIssueId && newIssueId == curIssueId) {
+    if (newIssueId && curIssueId && newIssueId === curIssueId) {
       yield put(highlightIssueSuccess({ issue: {} }));
     } else if (newIssueId) {
       yield put(highlightIssueSuccess({ issue: issue }));
