@@ -6,12 +6,17 @@ import "./styles.scss";
 export const NavigationBar = (props) => {
   return (
     <nav className="navigation-bar navbar navbar-expand-lg navbar-dark bg-dark">
-      <a className="navbar-brand" href="#">
-        Quod AI challenge
-      </a>
+      <div className="logo-wrapper col-4">
+        <a className="navbar-brand" href="#">
+          Quod AI challenge
+        </a>
+      </div>
+      <div className="header-title-wrapper d-flex align-items-center justify-content-center col-4">
+        <span className="text-light">Issues List</span>
+      </div>
 
       <div
-        className="collapse navbar-collapse d-flex justify-content-end"
+        className="collapse navbar-collapse d-flex justify-content-end col-4"
         id="navbarText"
       >
         <img
