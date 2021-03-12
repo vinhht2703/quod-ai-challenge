@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import "./styles.scss";
 import { highlightHistorySelector } from "../../containers/MainPage/selectors";
+import NotificationHistoryPopup from "../NotificationHistoryPopup";
 
 export const NavigationBar = (props) => {
   //state
@@ -14,9 +15,18 @@ export const NavigationBar = (props) => {
 
   useEffect(() => {
     if (!notificationVisible) {
-      readNotification(false);
+      readNotification(true);
     }
-  }, [highlightHistory, notificationVisible]);
+  }, [notificationVisible]);
+
+  useEffect(() => {
+    if (Array.isArray(highlightHistory) && highlightHistory.length)
+      readNotification(false);
+  }, [highlightHistory]);
+
+  const closeNotification = useCallback(() => {
+    if (notificationVisible) updateNotificationVisible(false);
+  });
 
   return (
     <nav className="navigation-bar navbar navbar-expand-lg navbar-dark bg-dark">
@@ -28,7 +38,6 @@ export const NavigationBar = (props) => {
       <div className="header-title-wrapper d-flex align-items-center justify-content-center col-4">
         <span className="text-light">Issues List</span>
       </div>
-
       <div
         className="collapse navbar-collapse d-flex justify-content-end col-4"
         id="navbarText"
@@ -46,6 +55,11 @@ export const NavigationBar = (props) => {
           <i className="bi bi-bell"></i>
           {!alreadyReadNotification ? <i className="bi bi-dot"></i> : null}
         </a>
+        <NotificationHistoryPopup
+          visible={notificationVisible}
+          highlightHistory={highlightHistory}
+          closeNotification={closeNotification}
+        ></NotificationHistoryPopup>
       </div>
     </nav>
   );

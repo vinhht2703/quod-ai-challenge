@@ -95,13 +95,13 @@ export const MainPage = (props) => {
             onClick={() => handlePagination("prev")}
             disabled={curPage === 1}
           >
-            <i class="bi bi-chevron-left mr-1"></i> Previous
+            <i className="bi bi-chevron-left mr-1"></i> Previous
           </Button>
           <Button
             className="next-btn "
             onClick={() => handlePagination("next")}
           >
-            Next <i class="bi bi-chevron-right ml-1"></i>
+            Next <i className="bi bi-chevron-right ml-1"></i>
           </Button>
           <span className="page-info ml-3">Page {curPage}</span>
         </span>

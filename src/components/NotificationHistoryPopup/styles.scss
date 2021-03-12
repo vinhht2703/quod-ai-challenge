@@ -1,0 +1,35 @@
+.notification-history-container {
+  position: fixed;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  z-index: 2000;
+  right: 5px;
+  top: 53px;
+  width: 300px;
+
+  .title {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .issues-list-container {
+    .issue-container {
+      word-wrap: break-word;
+
+      .title-info {
+        font-size: 15px;
+      }
+
+      .id-info {
+        color: #586069;
+        font-size: 12px;
+      }
+
+      &:hover {
+        background-color: #f6f8fa;
+        cursor: pointer;
+      }
+    }
+  }
+}
