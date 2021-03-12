@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { fetchIssues } from "./actions";
-import { issuesDataSelector, isLoadingIssuesSelector } from "./selectors";
+import { fetchIssues, highlightIssue } from "./actions";
+import {
+  issuesDataSelector,
+  isLoadingIssuesSelector,
+  highlightedIssueSelector,
+} from "./selectors";
 import "./styles.scss";
 
 export const MainPage = (props) => {
@@ -10,28 +14,58 @@ export const MainPage = (props) => {
   const [curPage, updatePage] = useState(1);
 
   //props
-  const { onFetchIssues, issuesData, isLoadingIssues } = props;
-
-  console.log("issuesData", issuesData, props);
+  const {
+    onFetchIssues,
+    issuesData,
+    isLoadingIssues,
+    highlightedIssue,
+    onHighlightIssue,
+  } = props;
 
   useEffect(() => {
     if (!issuesData[`${curPage}`] && typeof onFetchIssues === "function")
       onFetchIssues({ page: curPage });
   }, [curPage]);
 
-  const handlePagination = (type) => {
-    switch (type) {
-      case "prev":
-        if (curPage - 1 > 0) updatePage(curPage - 1);
-        break;
+  const handlePagination = useCallback(
+    (type) => {
+      switch (type) {
+        case "prev":
+          if (curPage - 1 > 0) updatePage(curPage - 1);
+          break;
 
-      case "next":
-        updatePage(curPage + 1);
-        break;
+        case "next":
+          updatePage(curPage + 1);
+          break;
 
-      default:
-        break;
-    }
+        default:
+          break;
+      }
+    },
+    [curPage]
+  );
+
+  const _renderIssues = (issues) => {
+    if (!Array.isArray(issues)) return null;
+
+    return issues.map((issue) => {
+      const { title, id } = issue || {};
+
+      const isHighlighted = highlightedIssue && highlightedIssue.id == id;
+
+      return (
+        <li
+          key={id}
+          className={`issue-item px-3 py-2 border ${
+            isHighlighted ? "highlighted" : ""
+          }`}
+          onClick={() => onHighlightIssue({ issue })}
+        >
+          <div className="issue-title">{title}</div>
+          <div className="issue-id">#{id}</div>
+        </li>
+      );
+    });
   };
 
   return (
@@ -39,8 +73,8 @@ export const MainPage = (props) => {
       <ul className="issues-list border">
         {isLoadingIssues ? (
           <div className="loading-container py-3">
-            <div class="spinner-border text-secondary" role="status">
-              <span class="sr-only">Loading...</span>
+            <div className="spinner-border text-secondary" role="status">
+              <span className="sr-only">Loading...</span>
             </div>
           </div>
         ) : (
@@ -67,38 +101,26 @@ export const MainPage = (props) => {
   );
 };
 
-const _renderIssues = (issues) => {
-  if (!Array.isArray(issues)) return null;
-
-  return issues.map((iss) => {
-    const { title, id } = iss || {};
-
-    return (
-      <li className="issue-item px-3 py-2 border">
-        <div className="issue-title">{title}</div>
-        <div className="issue-id">#{id}</div>
-      </li>
-    );
-  });
-};
-
 MainPage.propTypes = {
   onFetchIssues: PropTypes.func,
+  onHighlightIssue: PropTypes.func,
   issuesData: PropTypes.object,
   isLoadingIssues: PropTypes.bool,
+  highlightedIssue: PropTypes.object,
 };
 
 function mapStateToProps(state) {
-  console.log("mapStateToProps", state);
   return {
     issuesData: issuesDataSelector(state),
     isLoadingIssues: isLoadingIssuesSelector(state),
+    highlightedIssue: highlightedIssueSelector(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     onFetchIssues: (evt) => dispatch(fetchIssues(evt)),
+    onHighlightIssue: (evt) => dispatch(highlightIssue(evt)),
   };
 }
 

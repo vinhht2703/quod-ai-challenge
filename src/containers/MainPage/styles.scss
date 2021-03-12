@@ -13,8 +13,13 @@
     }
 
     .issue-item {
-      &.highlight {
+      &.highlighted {
         background-color: #ffa500;
+        &:hover {
+          background-color: #ffa500;
+          opacity: 0.8;
+          cursor: pointer;
+        }
       }
 
       &:hover {

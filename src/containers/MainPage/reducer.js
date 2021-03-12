@@ -13,6 +13,7 @@ export const initialState = {
   isLoadingIssues: false,
   error: false,
   issuesData: {},
+  highlightedIssue: {},
   highlightHistory: [],
 };
 
@@ -30,7 +31,7 @@ const mainReducer = (state = initialState, action) =>
 
         if (typeof draft.issuesData === "object")
           draft.issuesData[`${page}`] = issues;
-          
+
         draft.isLoadingIssues = false;
 
         break;
@@ -44,9 +45,21 @@ const mainReducer = (state = initialState, action) =>
         break;
 
       case HIGHLIGHT_ISSUE_SUCCESS:
+        const { issue } = payload;
+
+        if (issue && issue.id && Array.isArray(draft.highlightHistory)) {
+          draft.highlightHistory = [issue, ...state.highlightHistory].slice(
+            0,
+            5
+          );
+        }
+
+        draft.highlightedIssue = issue;
+
         break;
 
       case HIGHLIGHT_ISSUE_ERROR:
+        draft.error = error;
         break;
 
       default:

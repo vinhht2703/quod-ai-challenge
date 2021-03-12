@@ -9,9 +9,22 @@
     border-radius: 50px;
     &:hover {
       background-color: #ffffff10;
+
+      .bi-dot {
+        opacity: 0.8;
+      }
     }
     .bi-bell {
       font-size: 20px;
+      z-index: 3;
+    }
+
+    .bi-dot {
+      position: absolute;
+      right: -5px;
+      bottom: -25px;
+      color: red;
+      font-size: 65px;
       z-index: 3;
     }
   }

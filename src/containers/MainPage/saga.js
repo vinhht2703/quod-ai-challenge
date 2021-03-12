@@ -7,17 +7,19 @@ import {
   select,
 } from "redux-saga/effects";
 import { FETCH_ISSUES, HIGHLIGHT_ISSUE } from "./constants";
-import { fetchIssuesError, fetchIssuesSuccess } from "./actions";
+import {
+  fetchIssuesError,
+  fetchIssuesSuccess,
+  highlightIssueError,
+  highlightIssueSuccess,
+} from "./actions";
+import { issuesDataSelector, highlightedIssueSelector } from "./selectors";
 
 export function* fetchIssues(action) {
   try {
     const { payload } = action || {};
     const { page } = payload || {};
-    const state = yield select();
-    const { main: mainReducer } = state || {};
-    const { issuesData } = mainReducer || {};
-
-    console.log("fetchIssues", state);
+    const issuesData = yield select(issuesDataSelector);
 
     if (issuesData && issuesData[page]) return;
 
@@ -33,9 +35,31 @@ export function* fetchIssues(action) {
   }
 }
 
+export function* highlightIssue(action) {
+  try {
+    const { payload } = action || {};
+    const { issue } = payload || {};
+    const { id: newIssueId } = issue || {};
+    const highlightedIssue = yield select(highlightedIssueSelector);
+    const { id: curIssueId } = highlightedIssue || {};
+
+    if (newIssueId && curIssueId && newIssueId == curIssueId) {
+      yield put(highlightIssueSuccess({ issue: {} }));
+    } else if (newIssueId) {
+      yield put(highlightIssueSuccess({ issue: issue }));
+    }
+  } catch (err) {
+    yield put(highlightIssueError(err));
+  }
+}
+
 /**
  * Root saga manages watcher lifecycle
  */
 export function* watchFetchIssues() {
   yield takeLatest(FETCH_ISSUES, fetchIssues);
+}
+
+export function* watchHighlightIssue() {
+  yield takeLatest(HIGHLIGHT_ISSUE, highlightIssue);
 }

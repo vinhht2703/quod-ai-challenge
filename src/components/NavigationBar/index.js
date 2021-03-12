@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import "./styles.scss";
+import { highlightHistorySelector } from "../../containers/MainPage/selectors";
 
 export const NavigationBar = (props) => {
+  //state
+  const [alreadyReadNotification, readNotification] = useState(true);
+  const [notificationVisible, updateNotificationVisible] = useState(false);
+
+  //props
+  const { highlightHistory } = props;
+
+  useEffect(() => {
+    if (!notificationVisible) {
+      readNotification(false);
+    }
+  }, [highlightHistory, notificationVisible]);
+
   return (
     <nav className="navigation-bar navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="logo-wrapper col-4">
@@ -24,8 +38,13 @@ export const NavigationBar = (props) => {
           className="avatar-user"
         ></img>
         <span className="text-white ml-2">Vinh</span>
-        <a role="button" className="notify-wrapper ml-4 text-light">
+        <a
+          role="button"
+          className="notify-wrapper ml-4 text-light"
+          onClick={() => updateNotificationVisible(!notificationVisible)}
+        >
           <i className="bi bi-bell"></i>
+          {!alreadyReadNotification ? <i className="bi bi-dot"></i> : null}
         </a>
       </div>
     </nav>
@@ -37,7 +56,9 @@ NavigationBar.propTypes = {
 };
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    highlightHistory: highlightHistorySelector(state),
+  };
 }
 
 function mapDispatchToProps(dispatch) {
