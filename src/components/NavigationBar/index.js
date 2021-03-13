@@ -14,32 +14,43 @@ export const NavigationBar = (props) => {
   const { highlightHistory } = props;
 
   useEffect(() => {
-    if (!notificationVisible) {
+    // have read notification
+    if (
+      !notificationVisible ||
+      (notificationVisible && !alreadyReadNotification)
+    ) {
       readNotification(true);
     }
   }, [notificationVisible]);
 
   useEffect(() => {
-    if (Array.isArray(highlightHistory) && highlightHistory.length)
+    // have not read notification yet
+    if (
+      !notificationVisible &&
+      alreadyReadNotification &&
+      Array.isArray(highlightHistory) &&
+      highlightHistory.length
+    ) {
       readNotification(false);
+    }
   }, [highlightHistory]);
 
   const closeNotification = useCallback(() => {
     if (notificationVisible) updateNotificationVisible(false);
-  });
+  }, [notificationVisible]);
 
   return (
     <nav className="navigation-bar navbar navbar-expand-lg navbar-dark bg-dark">
-      <div className="logo-wrapper col-4">
-        <a className="navbar-brand" href="#">
+      <div className="logo-wrapper col-sm-4">
+        <a className="navbar-brand text-truncate" href="#">
           Quod AI challenge
         </a>
       </div>
-      <div className="header-title-wrapper d-flex align-items-center justify-content-center col-4">
+      <div className="header-title-wrapper d-flex align-items-center justify-content-center col-sm-4 col-6">
         <span className="text-light">Issues List</span>
       </div>
       <div
-        className="collapse navbar-collapse d-flex justify-content-end col-4"
+        className="collapse navbar-collapse d-flex justify-content-end col-sm-4 col-6"
         id="navbarText"
       >
         <img
