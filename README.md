@@ -2,15 +2,13 @@
 
 ...
 
-<h3 >
-    <a href="https://huynhtanvinh-quod-ai.netlify.app/">Online Demo</a>
- </h3>
+<h3>
+    <a href="https://huynhtanvinh-quod-ai.netlify.app/" target="_blank">Online Demo</a>
+</h3>
 
 ## Description
 
 In the project directory, you can run:
-
-
 
 ## Getting started
 
@@ -30,20 +28,21 @@ In the project directory, you can run:
    Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Technical decision
-### How did you implement styling? What are the pros and cons? Why did you chose this approach?
 
+1. How did you implement styling? What are the pros and cons? Why did you chose this approach?
+   test test test test test test test test test test
 
-### How did you share state between components? What are the pros and cons? Why did you chose this approach?
+2. How did you share state between components? What are the pros and cons? Why did you chose this approach?
+   test test test test test test test test test test
 
+3. Did you use React hooks? Why or why not?
+   test test test test test test test test test test
 
-### Did you use React hooks? Why or why not?
+4. What would you improve?
+   test test test test test test test test test test
 
-### What would you improve?
+5. How did you prevent wasted renders?
+   test test test test test test test test test test
 
-
-### How did you prevent wasted renders?
-
-
-### How did you handle side-effects (e.g. data fetching)? What are the pros and cons? Why did you chose this approach?
-
-
+6. How did you handle side-effects (e.g. data fetching)? What are the pros and cons? Why did you chose this approach?
+   test test test test test test test test test test
