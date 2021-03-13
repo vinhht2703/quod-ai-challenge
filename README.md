@@ -47,7 +47,9 @@ For styling, I use libraries such as Bootstrap, Ant design and node-sass.
     * Requirement of style overrides (Bootstrap, Ant design)
     * Taking time to interpret and compile SCSS into CSS (node-sass)
 
-I use Bootstrap for using grid system, styled navigation and styling some tags quickly via using className. I also use Ant design due to high-quality React components such as notification toast which is easier to use than Bootstrap. Moreover, there are some styles which I have to override for styling prettier so that I use node-sass which is the library allow me to style by SCSS syntax. SCSS is like CSS with better formatting.
+I use Bootstrap for using grid system, styled navigation and styling some tags quickly via using className. I also use Ant design due to high-quality React components such as notification toast which is easier to use than Bootstrap. 
+
+Moreover, there are some styles which I have to override for styling prettier so that I use node-sass which is the library allow me to style by SCSS syntax. SCSS is like CSS with better formatting.
 
 ### State Management
 
