@@ -14,19 +14,30 @@ export const NavigationBar = (props) => {
   const { highlightHistory } = props;
 
   useEffect(() => {
-    if (!notificationVisible) {
+    // have read notification
+    if (
+      !notificationVisible ||
+      (notificationVisible && !alreadyReadNotification)
+    ) {
       readNotification(true);
     }
   }, [notificationVisible]);
 
   useEffect(() => {
-    if (Array.isArray(highlightHistory) && highlightHistory.length)
+    // have not read notification yet
+    if (
+      !notificationVisible &&
+      alreadyReadNotification &&
+      Array.isArray(highlightHistory) &&
+      highlightHistory.length
+    ) {
       readNotification(false);
+    }
   }, [highlightHistory]);
 
   const closeNotification = useCallback(() => {
     if (notificationVisible) updateNotificationVisible(false);
-  });
+  }, [notificationVisible]);
 
   return (
     <nav className="navigation-bar navbar navbar-expand-lg navbar-dark bg-dark">
