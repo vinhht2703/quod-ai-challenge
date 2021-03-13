@@ -1,71 +1,109 @@
-# Getting Started with Create React App
+# Quod AI challenge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project displays a list of github issues, allows to highlight one of these issues and shows notifications.
 
-## Available Scripts
+<h3>
+    <a href="https://huynhtanvinh-quod-ai.netlify.app/">Online Demo</a>
+</h3>
 
-In the project directory, you can run:
+## Dependencies
+- bootstrap: CSS framework.
+- ant-design: React UI library with a set of high-quality React components.
+- node-sass: Library that provides binding for Node.js to LibSass.
+- redux && react-redux: Library for managing application state.
+- redux-saga: Library that aims to make application side effects.
+- immer: Package that allows you to work with immutable state in a more convenient way.
 
-### `yarn start`
+## Getting started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Clone the repo
+   ```sh
+   git clone https://github.com/vinhht2703/quod-ai-challenge.git
+   ```
+2. Restore packages
+   ```
+   npm install
+   ```
+3. Build and run demo
+   ```
+   npm start
+   ```
+4. Runs the app in the development mode.\
+   Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Technical decision
 
-### `yarn test`
+### Styling
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+For styling, I use libraries such as Bootstrap, Ant design and node-sass.
+- Pros:
+    * Having flexible grid system (Bootstrap, Ant design)
+    * Customizable (Bootstrap, Ant design)
+    * Base CSS - Cascading Style Sheets are built so you don't have to code CSS too much (Bootstrap)
+    * High-quality React components (Ant design)
+    * Possibility of applying CSS, overriding styles with better formatting by using SCSS syntax (node-sass) 
+- Cons:
+    * Taking lots of capacity for installation (Bootstrap, Ant design)
+    * Requirement of style overrides (Bootstrap, Ant design)
+    * Taking time to interpret and compile SCSS into CSS (node-sass)
 
-### `yarn build`
+I use Bootstrap for using grid system, styled navigation and styling some tags quickly via using className. I also use Ant design due to high-quality React components such as notification toast which is easier to use than Bootstrap. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Moreover, there are some styles which I have to override for styling prettier so that I use node-sass which is the library allow me to style by SCSS syntax. SCSS is like CSS with better formatting.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### State Management
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+I use Redux to share state between components and also install immer package for handling immutable data in reducers.
+- Pros:
+    * Having global store that any component can access any state from the store (Redux)
+    * Persisting the state of a component even after the component has unmounted (Redux)
+    * Simply modifying immutable redux state while keeping all the benefits of immutable data. (immer)
+    * Boilerplate reduction, less noise, more concise code (immer)
+- Cons:
+    * No encapsulation. Any component can access the data which can cause security issues. (Redux)
+    * Redux state is immutable so when the reducer update the state, a new state will be created every time which can cause excessive use of memory. (Redux)
 
-### `yarn eject`
+Because of having global store of redux, I can use some state from redux to pass into some components.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+For one of examples in this project, I will use highlightHistory from redux store for Navigation component and Main Page component. I update highlightHistory by highlighting one of issue from Main Page component. After that, the Navigation which has alert icon will have a new highlightHistory props without connecting to Main Page component.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Furthermore, I also use immer for modifying immutable redux state without destroying immutable data from redux.
+  
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Using React Hooks
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+I use React hooks in my project.
 
-## Learn More
+The first reason is that it has simpler codes than writing a class and can also use state and other React features without writing a class. I mean that in class component, we have to understand lifecycle functions such as ComponentDidMount, ComponentWillUnmount, ComponentDidUpdate and add other functions to appropriate these lifecycle functions. But with hooks, I can only use useEffect functions to handle issue. Moreover, using React hooks makes easier to test because it is just a function, not a class with lots of functions.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Finally, I also use useRef to get the reference of Notification popup which is checked click outside to close.
+   
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### What would I improve?
 
-### Code Splitting
+In this project, there are some improvements that I have thought.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+At UI aspect, I would like to show labels, created issue time and issue post creator in issue item of the list so that all users can see all issues with sufficient information in the list quickly. Furthermore, applying search and filter will help users finding issues easier.
 
-### Analyzing the Bundle Size
+At logical aspect, I would like to store the highlighted issue in local store by using redux-persist so that users do not have to fetch their own highlighted issue again from server.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Preventing wasted renders
 
-### Making a Progressive Web App
+To prevent wasted renders, I use hooks API such as useEffect and useCallback. UseEffect Hook is the same as componentDidMount, componentDidUpdate, and componentWillUnmount combined. For example, I use useEffect to handle and prevent rerunning side effect which is fetching new issues only when a page number is changed.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Furthermore, I also use useCallback Hook to memorize some function such as handlePagination to prevent wasted renders. The handlePagination is re-rendered only when the page number is changed.
+ 
 
-### Advanced Configuration
+### Handling side-effects (e.g. data fetching)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+I use redux-saga to handle side-effects in redux.
+- Pros:
+    * Handling side-effects such as data fetching with redux
+    * Simplicity of testing due to generator function
+- Cons:
+    * Brings in more complexity to the code
+    * Need understanding generator function
 
-### Deployment
+Due to using Redux for managing state, I use redux-saga to handle side-effects easily. Additionally, I can more easily check my asynchronous data flow.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# quod-ai-challenge
+    
