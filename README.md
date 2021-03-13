@@ -45,7 +45,7 @@ For styling, I use libraries such as Bootstrap, Ant design and node-sass.
 - Cons:
     * Taking lots of capacity for installation (Bootstrap, Ant design)
     * Requirement of style overrides (Bootstrap, Ant design)
-    * Taking time to interpret and compile SCSS into CSS (node-sass)
+    * Taking time to interpret and compile SCSS into CSS (node-sass)\
 I use Bootstrap for using grid system, styled navigation and styling some tags quickly via using className. I also use Ant design due to high-quality React components such as notification toast which is easier to use than Bootstrap. Moreover, there are some styles which I have to override for styling prettier so that I use node-sass which is the library allow me to style by SCSS syntax. SCSS is like CSS with better formatting.
 
 ### State Management
@@ -58,7 +58,7 @@ I use Redux to share state between components and also install immer package for
     * Boilerplate reduction, less noise, more concise code (immer)
 - Cons:
     * No encapsulation. Any component can access the data which can cause security issues. (Redux)
-    * Redux state is immutable so when the reducer update the state, a new state will be created every time which can cause excessive use of memory. (Redux)
+    * Redux state is immutable so when the reducer update the state, a new state will be created every time which can cause excessive use of memory. (Redux)\
 Because of having global store of redux, I can use some state from redux to pass into some components. For one of examples in this project, I will use highlightHistory from redux store for Navigation component and Main Page component. I update highlightHistory by highlighting one of issue from Main Page component. After that, the Navigation which has alert icon will have a new highlightHistory props without connecting to Main Page component. Furthermore, I also use immer for modifying immutable redux state without destroying immutable data from redux.
   
 
@@ -84,7 +84,7 @@ I use redux-saga to handle side-effects in redux.
     * Simplicity of testing due to generator function
 - Cons:
     * Brings in more complexity to the code
-    * Need understanding generator function
+    * Need understanding generator function\
 Due to using Redux for managing state, I use redux-saga to handle side-effects easily. Additionally, I can more easily check my asynchronous data flow.
 
     
