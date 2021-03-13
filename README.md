@@ -59,9 +59,10 @@ I use Redux to share state between components and also install immer package for
     * Boilerplate reduction, less noise, more concise code (immer)
 - Cons:
     * No encapsulation. Any component can access the data which can cause security issues. (Redux)
-    * Redux state is immutable so when the reducer update the state, a new state will be created every time which can cause excessive use of memory. (Redux)\
+    * Redux state is immutable so when the reducer update the state, a new state will be created every time which can cause excessive use of memory. (Redux)
 
-Because of having global store of redux, I can use some state from redux to pass into some components.\ 
+Because of having global store of redux, I can use some state from redux to pass into some components.
+
 For one of examples in this project, I will use highlightHistory from redux store for Navigation component and Main Page component. I update highlightHistory by highlighting one of issue from Main Page component. After that, the Navigation which has alert icon will have a new highlightHistory props without connecting to Main Page component.
 
 Furthermore, I also use immer for modifying immutable redux state without destroying immutable data from redux.
