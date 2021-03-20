@@ -107,4 +107,3 @@ I use redux-saga to handle side-effects in redux.
 Due to using Redux for managing state, I use redux-saga to handle side-effects easily. Additionally, I can more easily check my asynchronous data flow.
 
     
-# js-algorithm-exercises
