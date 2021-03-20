@@ -8,7 +8,7 @@ const NotificationHistoryPopup = (props) => {
   const popupRef = useRef(null);
 
   useOutsideClick(popupRef, () => {
-    if (visible && typeof closeNotification === "function") closeNotification();
+    if (typeof closeNotification === "function") closeNotification();
   });
 
   return (
