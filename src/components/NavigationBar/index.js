@@ -43,11 +43,11 @@ export const NavigationBar = (props) => {
     <nav className="navigation-bar navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="logo-wrapper col-sm-4">
         <a className="navbar-brand text-truncate" href="#">
-          Quod AI challenge
+          Javascript
         </a>
       </div>
       <div className="header-title-wrapper d-flex align-items-center justify-content-center col-sm-4 col-6">
-        <span className="text-light">Issues List</span>
+        <span className="text-light">Algorithm Exercises</span>
       </div>
       <div
         className="collapse navbar-collapse d-flex justify-content-end col-sm-4 col-6"
